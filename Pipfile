@@ -9,6 +9,7 @@ amazon-braket-sdk = "*"
 qiskit = "*"
 jupyter = "*"
 pyquil = "*"
+pylatexenc = "*"
 
 [dev-packages]
 
