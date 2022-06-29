@@ -10,6 +10,8 @@ qiskit = "*"
 jupyter = "*"
 pyquil = "*"
 pylatexenc = "*"
+microsoft = "*"
+qsharp = "*"
 
 [dev-packages]
 
