@@ -12,6 +12,7 @@ pyquil = "*"
 pylatexenc = "*"
 microsoft = "*"
 qsharp = "*"
+projectq = "*"
 
 [dev-packages]
 
