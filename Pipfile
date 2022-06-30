@@ -13,6 +13,7 @@ pylatexenc = "*"
 microsoft = "*"
 qsharp = "*"
 projectq = "*"
+tequila-basic = "*"
 
 [dev-packages]
 
