@@ -1,4 +1,4 @@
-from cirq import LineQubit, X, H, Circuit, inverse, Simulator, Gate
+from cirq import LineQubit, X, H, Circuit, inverse, Simulator, Z
 import numpy as np
 
 
@@ -52,7 +52,7 @@ if __name__ == '__main__':
     q = LineQubit(0)
     ops1 = my_operator(q)
     ops2 = inverse(ops1)
-    c = Circuit(ops1, ops2)
+    c = Circuit(ops1, Z(q), ops2)
 
     simulator = Simulator()
     result = simulator.simulate(c)
