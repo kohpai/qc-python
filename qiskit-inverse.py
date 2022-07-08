@@ -13,7 +13,7 @@ def my_operator():
 
 if __name__ == '__main__':
     # print(Aer.backends())
-    simulator = Aer.get_backend('aer_simulator')
+    backend = Aer.get_backend('aer_simulator')
 
     q = QuantumRegister(1)
     c = QuantumCircuit(q)
@@ -24,5 +24,5 @@ if __name__ == '__main__':
 
     print(c.decompose())
     c.save_statevector(label="q")
-    result = simulator.run(transpile(c, simulator)).result()
+    result = backend.run(transpile(c, backend)).result()
     print(result.data(0)['q'])
