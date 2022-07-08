@@ -12,7 +12,8 @@ def my_operator():
 
 
 if __name__ == '__main__':
-    simulator = Aer.get_backend('qasm_simulator')
+    # print(Aer.backends())
+    simulator = Aer.get_backend('aer_simulator')
 
     q = QuantumRegister(1)
     c = QuantumCircuit(q)
