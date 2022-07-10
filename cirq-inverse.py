@@ -1,4 +1,4 @@
-from cirq import LineQubit, X, H, Circuit, inverse, Simulator, Z
+from cirq import LineQubit, X, H, Circuit, inverse, Simulator, Z, decompose
 import numpy as np
 
 
@@ -54,6 +54,7 @@ if __name__ == '__main__':
     ops2 = inverse(ops1)
     c = Circuit(ops1, Z(q), ops2)
 
+    print(decompose(c))
     simulator = Simulator()
     result = simulator.simulate(c)
     print(np.around(result.final_state_vector, 3))
