@@ -8,7 +8,9 @@ def my_operator():
     c.x(q)
     c.h(q)
 
-    return c.to_gate()
+    gate = c.to_gate()
+    gate.name = "MyOp"
+    return gate
 
 
 if __name__ == '__main__':
@@ -22,7 +24,7 @@ if __name__ == '__main__':
     c.z(q)
     c.append(my_operator().inverse(), q)
 
-    print(c.decompose())
+    print(c.decompose(['MyOp', 'MyOp_dg']))
     c.save_statevector(label="q")
     result = backend.run(transpile(c, backend)).result()
     print(result.data(0)['q'])
