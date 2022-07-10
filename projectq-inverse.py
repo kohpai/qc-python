@@ -1,6 +1,6 @@
 from projectq import MainEngine
 from projectq.meta import Dagger
-from projectq.ops import H, X
+from projectq.ops import H, X, Z
 from projectq.types import Qubit
 
 
@@ -14,6 +14,7 @@ if __name__ == '__main__':
     q = eng.allocate_qubit()[0]
 
     my_operator(q)
+    Z | q
     with Dagger(eng):
         my_operator(q)
 
