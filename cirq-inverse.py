@@ -1,49 +1,7 @@
-from cirq import LineQubit, X, H, Circuit, inverse, Simulator, Z, decompose
-import numpy as np
-
-
-# class MyGate(Gate):
-#     def __init__(self):
-#         super(MyGate, self)
-#
-#     def _num_qubits_(self):
-#         return 1
-#
-#     def _unitary_(self):
-#         return np.array([
-#             [1.0,  1.0],
-#             [-1.0, 1.0]
-#         ]) / np.sqrt(2)
-#
-#     def _circuit_diagram_info_(self, args):
-#         return "G"
-#
-#     def __pow__(self, power, modulo=None):
-#         return NotImplemented if power != -1 else MyGateInverse()
-#
-#
-# class MyGateInverse(Gate):
-#     def __init__(self):
-#         super(MyGateInverse, self)
-#
-#     def _num_qubits_(self):
-#         return 1
-#
-#     def _unitary_(self):
-#         return np.array([
-#             [1.0,  -1.0],
-#             [1.0, 1.0]
-#         ]) / np.sqrt(2)
-#
-#     def _circuit_diagram_info_(self, args):
-#         return "G'"
-#
-#     def __pow__(self, power, modulo=None):
-#         return NotImplemented if power != -1 else MyGate()
+from cirq import LineQubit, X, H, Circuit, inverse, Simulator, Z
 
 
 def my_operator(q: LineQubit):
-    # my_gate = MyGate()
     return [X(q),
             H(q)]
 
@@ -54,7 +12,8 @@ if __name__ == '__main__':
     ops2 = inverse(ops1)
     c = Circuit(ops1, Z(q), ops2)
 
-    print(decompose(c))
+    print(c)
+    # print(decompose(c))
     simulator = Simulator()
-    result = simulator.simulate(c)
-    print(np.around(result.final_state_vector, 3))
+    for i, step in enumerate(simulator.simulate_moment_steps(c)):
+        print('state at step %d: %s' % (i, step.state_vector(copy=True)))
