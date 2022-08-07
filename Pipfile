@@ -15,6 +15,7 @@ qsharp = "*"
 projectq = "*"
 tequila-basic = "*"
 networkx = "*"
+pylatex = "*"
 
 [dev-packages]
 
