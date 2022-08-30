@@ -16,6 +16,8 @@ projectq = "*"
 tequila-basic = "*"
 networkx = "*"
 pylatex = "*"
+scipy = "*"
+sympy = "*"
 
 [dev-packages]
 
