@@ -18,6 +18,7 @@ networkx = "*"
 pylatex = "*"
 scipy = "*"
 sympy = "*"
+qpic = "*"
 
 [dev-packages]
 
