@@ -5,7 +5,7 @@ namespace MaxCut {
     open Microsoft.Quantum.Measurement as Measurement;
 
     newtype Graph = (Nodes: Qubit[], Edges: (Qubit, Qubit)[]);
-    newtype DrawParams = (G: Graph, Beta: Double, Gamma: Double);
+    newtype DrawParams = (G: Graph, Theta: Double[]);
 
     operation Mixer(nodes: Qubit[], beta: Double) : Unit {
         for qubit in nodes {
@@ -20,14 +20,18 @@ namespace MaxCut {
     }
 
     operation DrawAnsatz(p: DrawParams) : String {
+        let theta = p::Theta;
+        let mid = Length(theta) / 2;
+        let betas = theta[...mid-1];
+        let gammas = theta[mid...];
         let graph = p::G;
         let nodes = graph::Nodes;
 
         Canon.ApplyToEach(H, graph::Nodes);
 
-        for _ in 1..2 {
-            Problem(graph::Edges, p::Gamma);
-            Mixer(nodes, p::Beta);
+        for i in 0..mid-1 {
+            Problem(graph::Edges, gammas[i]);
+            Mixer(nodes, betas[i]);
         }
 
         let result = Arrays.Fold((a, b) -> a + b, "", Arrays.Mapped(x -> x == Zero ? "0" | "1", Measurement.MultiM(nodes)));
@@ -36,10 +40,10 @@ namespace MaxCut {
         return result;
     }
 
-    operation PrepareAnsatzes(beta: Double, gamma: Double, shots: Int) : String[] {
+    operation PrepareAnsatzes(theta: Double[], shots: Int) : String[] {
         use nodes = Qubit[4];
         let edges = [(nodes[0], nodes[1]), (nodes[1], nodes[2]), (nodes[2], nodes[3]), (nodes[3], nodes[0])];
 
-        return Arrays.DrawMany(DrawAnsatz, shots, DrawParams(Graph(nodes, edges), beta, gamma));
+        return Arrays.DrawMany(DrawAnsatz, shots, DrawParams(Graph(nodes, edges), theta));
     }
 }
